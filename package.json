@@ -1,6 +1,6 @@
 {
   "name": "elm-version-manager",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "CLI for managing Elm versions on your local system",
   "main": "index.js",
   "license": "MIT",
