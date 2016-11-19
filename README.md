@@ -121,4 +121,4 @@ $ evm --version
 
 ## Contributing
 
-Please see issues to for current bugs or questions. If you kinda a bug please open an issue, and if you are up to it please make a pull request with a fix. Contributions are welcomed!
+Please see issues to for current bugs or questions. If you find a bug please open an issue, and if you are up to it please make a pull request with a fix. Contributions are welcomed!
