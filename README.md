@@ -2,10 +2,7 @@
 
 A package that helps manage the local version Elm.
 
-
 Now that Elm is being used in production and is having more releases, many people will run into supporting older Elm projects, while at the same time wanting to use the newest version for a new project, at least until they are able to upgrade the older ones. Also, if you have a production project and an open source Elm package that are using an older version, you will need to manually do the path switching to different elm platform executables, or have a script to do it for you, if you want to upgrade your Elm package while supporting the production project. Neither is quite shareable or easy, so this cli is trying to make switch elm versions locally a breeze.
-
-git push -u origin master
 
 ### Example Installing
 
