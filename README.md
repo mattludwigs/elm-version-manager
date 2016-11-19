@@ -26,7 +26,7 @@ Node 4.0+
 
 ## What about elmenv?
 
-[elmenv](https://github.com/sonnym/elmenv) should be just fine. However, it looks like, from the issues, that new versions of Elm are automatically included and the maintainer has to go and add those, which can be a blocker for people wanting to switch versions as they come out. With evm you everything should stay sync with the latest versions, so as new releases are cut but the Elm core team, you can install them via evm.
+[elmenv](https://github.com/sonnym/elmenv) should be just fine. However, it looks like from the issues, that new versions of Elm are not automatically included and the maintainer has to go and add those, which can be a blocker for people wanting to switch versions as they come out. With evm you everything should stay sync with the latest versions, so as new releases are cut but the Elm core team, you can install them via evm.
 
 ## Install a version of Elm
 
