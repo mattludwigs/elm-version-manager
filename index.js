@@ -102,7 +102,7 @@ var use = function(version) {
         } else {
           fs.symlinkSync(EVM_DIR + "/" + version + "/" + "elm-" + bin, usrBin + '/elm-' + bin);
         }
-        
+
         console.log(chalk.green("🚀 " + " elm-" + bin + " good to go!"));
       });
     });
@@ -120,7 +120,7 @@ var install = function(version) {
 
   request.get(url, function(err, response) {
     if (err) {
-      console.log(chalk.red("Error communitcating with URL: " + url + " " + error));
+      console.log(chalk.red("Error communicating with URL: " + url + " " + error));
     }
 
     if (response.statusCode == 404) {
@@ -178,11 +178,11 @@ var listRemote = function() {
   console.log(chalk.yellow("Getting information from server ⛵\n"));
   request.get(URL_BASE, function(err, response) {
     if (err) {
-      console.log(chalk.red("Error communitcating with URL: " + url + " " + error));
+      console.log(chalk.red("Error communicating with URL: " + url + " " + error));
     };
 
     if (response.statusCode == 404) {
-      console.log(chalk.red("Unfortunately, there the package binaries cannot be found"));
+      console.log(chalk.red("Unfortunately, the package binaries cannot be found"));
       return;
     }
 
