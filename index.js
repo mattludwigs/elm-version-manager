@@ -18,18 +18,24 @@ var packageJson = require("./package.json");
 var arch = process.arch;
 var operatingSystem = process.platform;
 var filename = operatingSystem + "-" + arch + ".tar.gz";
-var elmBins = [
-  "make",
-  "repl",
-  "package",
-  "reactor"
-]
 var versionPattern = /([0-9]\D.[0-9].?([0-9]?))|(master)/g
 
 if (process.platform === 'win32') {
     var usrBin = os.homedir() + "/Appdata/Local/Elm Version Manager";
+    var elmBins = [
+      "make.exe",
+      "repl.exe",
+      "package.exe",
+      "reactor.exe"
+    ];
 } else {
     var usrBin = "/usr/local/bin";
+    var elmBins = [
+      "make",
+      "repl",
+      "package",
+      "reactor"
+    ];
 }
 
 
@@ -98,7 +104,7 @@ var use = function(version) {
         }
 
         if (process.platform === 'win32') {
-          fs.copySync(EVM_DIR + "/" + version + "/" + "elm-" + bin + '.exe', usrBin + "/elm-" + bin + '.exe');
+          fs.copySync(EVM_DIR + "/" + version + "/" + "elm-" + bin, usrBin + "/elm-" + bin);
         } else {
           fs.symlinkSync(EVM_DIR + "/" + version + "/" + "elm-" + bin, usrBin + '/elm-' + bin);
         }
