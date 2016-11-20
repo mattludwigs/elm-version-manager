@@ -18,14 +18,27 @@ var packageJson = require("./package.json");
 var arch = process.arch;
 var operatingSystem = process.platform;
 var filename = operatingSystem + "-" + arch + ".tar.gz";
-var usrBin = "/usr/local/bin";
-var elmBins = [
-  "make",
-  "repl",
-  "package",
-  "reactor"
-]
 var versionPattern = /([0-9]\D.[0-9].?([0-9]?))|(master)/g
+
+if (process.platform === 'win32') {
+    var usrBin = os.homedir() + "/Appdata/Local/Elm Version Manager";
+    var elmBins = [
+      "elm.exe",
+      "elm-make.exe",
+      "elm-repl.exe",
+      "elm-package.exe",
+      "elm-reactor.exe"
+    ];
+} else {
+    var usrBin = "/usr/local/bin";
+    var elmBins = [
+      "elm",
+      "elm-make",
+      "elm-repl",
+      "elm-package",
+      "elm-reactor"
+    ];
+}
 
 
 var hasEvmDir = function() {
@@ -86,13 +99,19 @@ var use = function(version) {
     console.log(chalk.yellow("Using: " + version + "\n"));
 
     elmBins.forEach(function(bin) {
-      fs.unlink(usrBin + '/elm-' + bin, function(err) {
+      fs.unlink(usrBin + '/' + bin, function(err) {
         if (err && err.code !== "ENOENT") {
           console.log(chalk.red(err.message));
           return;
         }
-        fs.symlinkSync(EVM_DIR + "/" + version + "/" + "elm-" + bin, usrBin + '/elm-' + bin)
-        console.log(chalk.green("🚀 " + " elm-" + bin + " good to go!"));
+
+        if (process.platform === 'win32') {
+          fs.copySync(EVM_DIR + "/" + version + "/" + bin, usrBin + "/" + bin);
+        } else {
+          fs.symlinkSync(EVM_DIR + "/" + version + "/" + bin, usrBin + '/' + bin);
+        }
+
+        console.log(chalk.green("🚀 " + bin + " good to go!"));
       });
     });
   } else {
@@ -109,7 +128,7 @@ var install = function(version) {
 
   request.get(url, function(err, response) {
     if (err) {
-      console.log(chalk.red("Error communitcating with URL: " + url + " " + error));
+      console.log(chalk.red("Error communicating with URL: " + url + " " + error));
     }
 
     if (response.statusCode == 404) {
@@ -123,15 +142,15 @@ var install = function(version) {
         console.log(chalk.yellow("\nDownloaded " + version + " 🍻\n"));
 
         elmBins.forEach(function(exec) {
-          fs.stat(desPath + "/" + "elm-" + exec, function(err, stat) {
+          fs.stat(desPath + "/" + exec, function(err, stat) {
             if (err) {
               console.log(chalk.red("Error " + err.message));
               return;
             } else if (!stat.isFile()) {
-              console.log(chalk.red("Error file: " + "elm-" + exec + "is not a file"));
+              console.log(chalk.red("Error file: " + exec + "is not a file"));
               return;
             } else {
-              console.log(chalk.green("☁️ 🚀 ☁️  installed elm-" + exec + " for version: " + version));
+              console.log(chalk.green("☁️ 🚀 ☁️  installed " + exec + " for version: " + version));
             }
           });
         });
@@ -167,11 +186,11 @@ var listRemote = function() {
   console.log(chalk.yellow("Getting information from server ⛵\n"));
   request.get(URL_BASE, function(err, response) {
     if (err) {
-      console.log(chalk.red("Error communitcating with URL: " + url + " " + error));
+      console.log(chalk.red("Error communicating with URL: " + url + " " + error));
     };
 
     if (response.statusCode == 404) {
-      console.log(chalk.red("Unfortunately, there the package binaries cannot be found"));
+      console.log(chalk.red("Unfortunately, the package binaries cannot be found"));
       return;
     }
 
