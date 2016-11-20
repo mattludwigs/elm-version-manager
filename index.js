@@ -18,7 +18,6 @@ var packageJson = require("./package.json");
 var arch = process.arch;
 var operatingSystem = process.platform;
 var filename = operatingSystem + "-" + arch + ".tar.gz";
-var usrBin = "/usr/local/bin";
 var elmBins = [
   "make",
   "repl",
@@ -26,6 +25,12 @@ var elmBins = [
   "reactor"
 ]
 var versionPattern = /([0-9]\D.[0-9].?([0-9]?))|(master)/g
+
+if (process.platform === 'win32') {
+    var usrBin = os.homedir() + "/Appdata/Local/Elm Version Manager";
+} else {
+    var usrBin = "/usr/local/bin";
+}
 
 
 var hasEvmDir = function() {
