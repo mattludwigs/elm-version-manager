@@ -96,7 +96,13 @@ var use = function(version) {
           console.log(chalk.red(err.message));
           return;
         }
-        fs.symlinkSync(EVM_DIR + "/" + version + "/" + "elm-" + bin, usrBin + '/elm-' + bin)
+
+        if (process.platform === 'win32') {
+          fs.copySync(EVM_DIR + "/" + version + "/" + "elm-" + bin + '.exe', usrBin + "/elm-" + bin + '.exe');
+        } else {
+          fs.symlinkSync(EVM_DIR + "/" + version + "/" + "elm-" + bin, usrBin + '/elm-' + bin);
+        }
+        
         console.log(chalk.green("🚀 " + " elm-" + bin + " good to go!"));
       });
     });
