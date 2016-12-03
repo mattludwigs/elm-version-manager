@@ -205,6 +205,16 @@ var listRemote = function() {
   });
 }
 
+
+var help = function() {
+  if (arguments[0]) {
+    console.log(chalk.yellow("\n  Unknown command: `" + arguments[0] + "` 👈\n"));
+  }
+
+  program.help();
+}
+
+
 program
   .version(packageJson.version)
   .command("install <version>")
@@ -253,6 +263,11 @@ program
   .alias("rma")
   .description("removes all of your Elm versions")
   .action(removeAll)
+
+
+program
+  .command("help", "Display help information", {isDefault: true})
+  .action(help);
 
 
 program.parse(process.argv);
